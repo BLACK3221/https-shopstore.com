@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Shop - Tech2etc Ecommerce Tutorial</title>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <section id="header">
+            <a href="#"><img src="img/logo.png" class="logo" alt=""></a>
+            <div>
+                <ul id="navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a class="active" href="shop.html">Shop</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li id="lg-bag">
+                        <a href="cart.html">
+                            <i class="far fa-shopping-bag"></i>
+                            <span id="cart-count">0</span>
+                        </a>
+                    </li>
+                    <li id="lg-wishlist">
+                        <a href="#">
+                            <i class="far fa-heart"></i>
+                            <span id="wishlist-count">0</span>
+                        </a>
+                    </li>
+                    <a href="#" id="close"><i class="far fa-times"></i></a>
+                </ul>
+            </div>
+            <div id="mobile">
+                <a href="cart.html"><i class="far fa-shopping-bag"></i></a>
+                <a href="#"><i class="far fa-heart"></i></a>
+                <i id="bar" class="fas fa-outdent"></i>
+            </div>
+        </section>
+
+        <section id="page-header">
+            <h2>#stayhome</h2>
+            <p>Save more with coupons & up to 70% off!</p>
+        </section>
+
+        <section id="product1" class="section-p1">
+            <div class="search-filter">
+                <div class="filter-section">
+                    <div class="filter-group">
+                        <h4>Categories</h4>
+                        <div class="filter-options">
+                            <button class="filter-option active" data-filter="all">All</button>
+                            <button class="filter-option" data-filter="adidas">Adidas</button>
+                            <button class="filter-option" data-filter="nike">Nike</button>
+                            <button class="filter-option" data-filter="puma">Puma</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group search-input-group">
+                        <h4>Search</h4>
+                        <div class="search-input-container">
+                            <input type="text" id="search-input" placeholder="Search products...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-container">
+                <div class="pro" data-id="1" data-category="adidas" data-price="78">
+                    <img src="img/products/f1.jpg" alt="">
+                    <div class="des">
+                        <span>adidas</span>
+                        <h5>Cartoon Astronaut T-Shirts</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>$78</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="2" data-category="nike" data-price="120">
+                    <img src="img/products/f2.jpg" alt="">
+                    <div class="des">
+                        <span>nike</span>
+                        <h5>Nike Air Max Running Shoes</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <h4>$50</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="3" data-category="puma" data-price="65">
+                    <img src="img/products/f3.jpg" alt="">
+                    <div class="des">
+                        <span>puma</span>
+                        <h5>Puma Classic Sneakers</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <h4>$65</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="4" data-category="adidas" data-price="95">
+                    <img src="img/products/f4.jpg" alt="">
+                    <div class="des">
+                        <span>adidas</span>
+                        <h5>Adidas Ultraboost Running Shoes</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>$95</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="5" data-category="nike" data-price="85">
+                    <img src="img/products/f5.jpg" alt="">
+                    <div class="des">
+                        <span>nike</span>
+                        <h5>Nike Sportswear Hoodie</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <h4>$85</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="6" data-category="puma" data-price="55">
+                    <img src="img/products/f6.jpg" alt="">
+                    <div class="des">
+                        <span>puma</span>
+                        <h5>Puma Training Shorts</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>$55</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="7" data-category="adidas" data-price="110">
+                    <img src="img/products/f7.jpg" alt="">
+                    <div class="des">
+                        <span>adidas</span>
+                        <h5>Adidas Originals Track Jacket</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>$110</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="8" data-category="nike" data-price="150">
+                    <img src="img/products/f8.jpg" alt="">
+                    <div class="des">
+                        <span>nike</span>
+                        <h5>Nike Air Jordan Basketball Shoes</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>$150</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="9" data-category="nike" data-price="89">
+                    <img src="img/niker.jpeg" alt="">
+                    <div class="des">
+                        <span>nike</span>
+                        <h5>Nike Men's Running Shorts</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <h4>$89</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="10" data-category="adidas" data-price="75">
+                    <img src="img/adidas3.jpeg" alt="">
+                    <div class="des">
+                        <span>adidas</span>
+                        <h5>Adidas Men's Training Pants</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <h4>$75</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="11" data-category="puma" data-price="95">
+                    <img src="img/puma1.jpeg" alt="">
+                    <div class="des">
+                        <span>puma</span>
+                        <h5>Puma Men's Sport Jacket</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>$95</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="12" data-category="nike" data-price="120">
+                    <img src="img/nike1.jpeg" alt="">
+                    <div class="des">
+                        <span>nike</span>
+                        <h5>Nike Men's Basketball Jersey</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <h4>$120</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="13" data-category="adidas" data-price="85">
+                    <img src="img/adidas2.jpeg" alt="">
+                    <div class="des">
+                        <span>adidas</span>
+                        <h5>Adidas Men's Track Suit</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <h4>$85</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="14" data-category="puma" data-price="70">
+                    <img src="img/puma2.jpeg" alt="">
+                    <div class="des">
+                        <span>puma</span>
+                        <h5>Puma Men's Training Shorts</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>$70</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="15" data-category="nike" data-price="110">
+                    <img src="img/nike3.jpeg" alt="">
+                    <div class="des">
+                        <span>nike</span>
+                        <h5>Nike Men's Compression Tights</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <h4>$110</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+                <div class="pro" data-id="16" data-category="adidas" data-price="90">
+                    <img src="img/adidas1.jpg" alt="">
+                    <div class="des">
+                        <span>adidas</span>
+                        <h5>Adidas Men's Gym Shorts</h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <h4>$90</h4>
+                    </div>
+                    <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+                </div>
+            </div>
+
+            <div class="load-more">
+                <button class="load-more-btn">Load More</button>
+            </div>
+        </section>
+
+            <footer class="section-p1">
+                <div class="col">
+                    <img class="logo" src="img/logo.png" alt="">
+                    <h4>Contact</h4>
+                    <p><strong>Address: </strong> 562 Wellington Road, Street 32, San Francisco</p>
+                    <p><strong>Phone: </strong> +01 2222 365 /(+91) 01 2345 6789</p>
+                    <p><strong>Hours: </strong> 10:00 - 18:00, Mon - Sat</p>
+                    <div class="follow">
+                        <h4>Follow us</h4>
+                        <div class="icon">
+                            <i class="fab fa-facebook-f"></i>
+                            <i class="fab fa-twitter"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-pinterest-p"></i>
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                <p><strong>Phone: </strong> +01 2222 365 /(+91) 01 2345 6789</p>
+                <p><strong>Hours: </strong> 10:00 - 18:00, Mon - Sat</p>
+                <div class="follow">
+                    <h4>Follow us</h4>
+                    <div class="icon">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-pinterest-p"></i>
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <h4>About</h4>
+                <a href="#">About us</a>
+                <a href="#">Delivery Information</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Contact Us</a>
+            </div>
+
+            <div class="col">
+                <h4>My Account</h4>
+                <a href="#">Sign In</a>
+                <a href="#">View Cart</a>
+                <a href="#">My Wishlist</a>
+                <a href="#">Track My Order</a>
+                <a href="#">Help</a>
+            </div>
+
+            <div class="col install">
+                <h4>Install App</h4>
+                <p>From App Store or Google Play</p>
+                <div class="row">
+                    <img src="img/pay/app.jpg" alt="">
+                    <img src="img/pay/play.jpg" alt="">
+                </div>
+                <p>Secured Payment Gateways</p>
+                <img src="img/pay/pay.png" alt="">
+            </div>
+
+            <div class="copyright">
+                <p>© 2024, Tech2 etc - HTML CSS Ecommerce Template</p>
+            </div>
+        </footer>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>

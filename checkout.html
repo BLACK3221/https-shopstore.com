@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Your Order</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .checkout-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .checkout-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .step {
+            text-align: center;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: #e8e8e8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-number {
+            background: #088178;
+            color: white;
+        }
+
+        .checkout-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            border: 2px solid #e8e8e8;
+            padding: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #088178;
+            box-shadow: none;
+        }
+
+        .btn-checkout {
+            background: linear-gradient(45deg, #088178, #0a9a91);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-checkout:hover {
+            background: linear-gradient(45deg, #066e67, #088178);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(8, 129, 120, 0.3);
+        }
+
+        .btn-checkout:active {
+            transform: translateY(0);
+        }
+
+        .btn-checkout i {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-checkout:hover i {
+            transform: translateX(5px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            height: 2px;
+            background: #e8e8e8;
+            width: 100%;
+            z-index: 0;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: #088178;
+            width: 0;
+            transition: width 0.5s ease;
+        }
+
+        /* Custom Alert Styles */
+        .custom-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            transform: translateX(120%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+        }
+
+        .custom-alert.show {
+            transform: translateX(0);
+        }
+
+        .custom-alert-icon {
+            width: 40px;
+            height: 40px;
+            background: #088178;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 20px;
+        }
+
+        .custom-alert-content {
+            flex: 1;
+        }
+
+        .custom-alert-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #088178;
+        }
+
+        .custom-alert-message {
+            color: #666;
+            font-size: 14px;
+        }
+
+        @keyframes checkmark {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .custom-alert-icon i {
+            animation: checkmark 0.5s ease forwards;
+        }
+
+        /* Error message styles */
+        .error-message {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-control.error {
+            border-color: #dc3545;
+        }
+
+        .form-control.error:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+
+        /* Enhanced checkbox and button styles */
+        .order-confirmation {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #e8e8e8;
+            transition: all 0.3s ease;
+        }
+
+        .order-confirmation:hover {
+            border-color: #088178;
+            box-shadow: 0 5px 15px rgba(8, 129, 120, 0.1);
+        }
+
+        .custom-checkbox {
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            font-size: 16px;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #fff;
+            border: 2px solid #088178;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .custom-checkbox:hover input ~ .checkmark {
+            background-color: #f0f9f8;
+        }
+
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: #088178;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 8px;
+            top: 4px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .order-summary {
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .order-summary h5 {
+            color: #088178;
+            margin-bottom: 15px;
+        }
+
+        .order-total {
+            border-top: 2px solid #e8e8e8;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        /* Back to store button styles */
+        .back-to-store {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: white;
+            border: 2px solid #088178;
+            color: #088178;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(8, 129, 120, 0.1);
+            z-index: 1000;
+        }
+
+        .back-to-store:hover {
+            background: #088178;
+            color: white;
+            transform: translateX(-5px);
+            text-decoration: none;
+        }
+
+        .back-to-store i {
+            transition: transform 0.3s ease;
+        }
+
+        .back-to-store:hover i {
+            transform: translateX(-3px);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .back-to-store {
+            animation: slideIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back to store button -->
+    <a href="index.html" class="back-to-store">
+        <i class="fas fa-arrow-left"></i>
+        Retour au magasin
+    </a>
+
+    <!-- Custom Alert -->
+    <div class="custom-alert" id="customAlert">
+        <div class="custom-alert-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="custom-alert-content">
+            <div class="custom-alert-title">Paiement réussi!</div>
+            <div class="custom-alert-message">Votre commande a été confirmée.</div>
+        </div>
+    </div>
+
+    <div class="checkout-container">
+        <div class="checkout-steps">
+            <div class="progress-bar">
+                <div class="progress-bar-fill"></div>
+            </div>
+            <div class="step active">
+                <div class="step-number">1</div>
+                <div class="step-title">Cart Review</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-title">Shipping</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-title">Payment</div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-title">Confirmation</div>
+            </div>
+        </div>
+
+        <div class="checkout-form">
+            <!-- Step 1: Cart Review -->
+            <div class="step-content" id="step1">
+                <h2 class="mb-4">Cart Review</h2>
+                <div class="order-summary">
+                    <h5>Résumé de la commande</h5>
+                    <div class="cart-items">
+                        <div class="cart-item d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h5>Product Name</h5>
+                                <p class="text-muted">Quantity: 1</p>
+                            </div>
+                            <div class="price">$99.99</div>
+                        </div>
+                        <div class="order-total">
+                            <h4>Total: $99.99</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-confirmation">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" id="confirmOrder" required>
+                        <span class="checkmark"></span>
+                        Je confirme ma commande et j'accepte les conditions générales de vente
+                    </label>
+                    <div class="error-message" id="confirmOrderError">Veuillez confirmer votre commande</div>
+                </div>
+                <button type="button" class="btn btn-checkout" onclick="validateStep1()">
+                    <i class="fas fa-arrow-right"></i>
+                    Continuer vers la livraison
+                </button>
+            </div>
+
+            <!-- Step 2: Shipping -->
+            <div class="step-content" id="step2" style="display: none;">
+                <h2 class="mb-4">Shipping Information</h2>
+                <form id="shippingForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" id="firstName" required>
+                                <div class="error-message" id="firstNameError">Le prénom est requis</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" id="lastName" required>
+                                <div class="error-message" id="lastNameError">Le nom est requis</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" class="form-control" id="email" required>
+                        <div class="error-message" id="emailError">Une adresse email valide est requise</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" class="form-control" id="address" required>
+                        <div class="error-message" id="addressError">L'adresse est requise</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" class="form-control" id="city" required>
+                                <div class="error-message" id="cityError">La ville est requise</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Postal Code</label>
+                                <input type="text" class="form-control" id="postalCode" required>
+                                <div class="error-message" id="postalCodeError">Le code postal est requis</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-checkout" onclick="validateStep2()">Continue to Payment</button>
+                </form>
+            </div>
+
+            <!-- Step 3: Payment -->
+            <div class="step-content" id="step3" style="display: none;">
+                <h2 class="mb-4">Payment Information</h2>
+                <form id="paymentForm">
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                        <div class="error-message" id="cardNumberError">Le numéro de carte est requis</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Expiry Date</label>
+                                <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" required>
+                                <div class="error-message" id="expiryDateError">La date d'expiration est requise</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>CVV</label>
+                                <input type="text" class="form-control" id="cvv" placeholder="123" required>
+                                <div class="error-message" id="cvvError">Le CVV est requis</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-checkout" onclick="validateStep3()">Complete Payment</button>
+                </form>
+            </div>
+
+            <!-- Step 4: Confirmation -->
+            <div class="step-content" id="step4" style="display: none;">
+                <h2 class="mb-4">Order Confirmation</h2>
+                <div class="confirmation-message text-center">
+                    <i class="fas fa-check-circle text-success" style="font-size: 64px;"></i>
+                    <h3 class="mt-4">Thank You for Your Order!</h3>
+                    <p>Your order has been successfully placed.</p>
+                    <p>Order Number: #12345</p>
+                    <p>A confirmation email has been sent to your email address.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function showCustomAlert() {
+            const alert = document.getElementById('customAlert');
+            alert.classList.add('show');
+            
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 5000);
+        }
+
+        function updateProgressBar() {
+            const progressBar = document.querySelector('.progress-bar-fill');
+            const progress = (currentStep / totalSteps) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            document.querySelectorAll('.step').forEach((step, index) => {
+                if (index + 1 <= currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+        }
+
+        function showError(elementId, errorId) {
+            document.getElementById(elementId).classList.add('error');
+            document.getElementById(errorId).style.display = 'block';
+        }
+
+        function hideError(elementId, errorId) {
+            document.getElementById(elementId).classList.remove('error');
+            document.getElementById(errorId).style.display = 'none';
+        }
+
+        function validateStep1() {
+            const confirmOrder = document.getElementById('confirmOrder');
+            if (!confirmOrder.checked) {
+                showError('confirmOrder', 'confirmOrderError');
+                return false;
+            }
+            hideError('confirmOrder', 'confirmOrderError');
+            nextStep(1);
+        }
+
+        function validateStep2() {
+            let isValid = true;
+            const fields = ['firstName', 'lastName', 'email', 'address', 'city', 'postalCode'];
+            
+            fields.forEach(field => {
+                const value = document.getElementById(field).value.trim();
+                if (!value) {
+                    showError(field, `${field}Error`);
+                    isValid = false;
+                } else {
+                    hideError(field, `${field}Error`);
+                }
+            });
+
+            // Email validation
+            const email = document.getElementById('email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('email', 'emailError');
+                isValid = false;
+            }
+
+            if (isValid) {
+                nextStep(2);
+            }
+        }
+
+        function validateStep3() {
+            let isValid = true;
+            const fields = ['cardNumber', 'expiryDate', 'cvv'];
+            
+            fields.forEach(field => {
+                const value = document.getElementById(field).value.trim();
+                if (!value) {
+                    showError(field, `${field}Error`);
+                    isValid = false;
+                } else {
+                    hideError(field, `${field}Error`);
+                }
+            });
+
+            // Card number validation (basic)
+            const cardNumber = document.getElementById('cardNumber').value.trim();
+            if (cardNumber.length < 16) {
+                showError('cardNumber', 'cardNumberError');
+                isValid = false;
+            }
+
+            // CVV validation
+            const cvv = document.getElementById('cvv').value.trim();
+            if (cvv.length < 3) {
+                showError('cvv', 'cvvError');
+                isValid = false;
+            }
+
+            if (isValid) {
+                nextStep(3);
+            }
+        }
+
+        function nextStep(step) {
+            document.getElementById(`step${step}`).style.display = 'none';
+            currentStep = step + 1;
+            document.getElementById(`step${currentStep}`).style.display = 'block';
+            updateProgressBar();
+
+            if (currentStep === totalSteps) {
+                setTimeout(() => {
+                    showCustomAlert();
+                }, 1000);
+            }
+        }
+
+        // Initialize progress bar
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgressBar();
+        });
+    </script>
+</body>
+</html> 

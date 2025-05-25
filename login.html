@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+        }
+        .custom-alert {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .custom-alert.success {
+            background-color: #088178;
+        }
+        .custom-alert.error {
+            background-color: #ff4d4d;
+        }
+        .custom-alert.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        .form-wrapper {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .form-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .form-toggle button {
+            background: none;
+            border: none;
+            font-size: 18px;
+            margin: 0 15px;
+            cursor: pointer;
+            color: #666;
+            padding-bottom: 10px;
+        }
+        .form-toggle button.active {
+            color: #088178;
+            border-bottom: 2px solid #088178;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #088178;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #signup-form {
+            display: none;
+        }
+        .return-site-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .return-site-btn {
+            background-color: #f0f0f0;
+            color: #088178;
+            border: 2px solid #088178;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .return-site-btn:hover {
+            background-color: #088178;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="form-wrapper">
+            <div class="form-toggle">
+                <button id="login-tab" class="active" onclick="showLoginForm()">Login</button>
+                <button id="signup-tab" onclick="showSignupForm()">Sign Up</button>
+            </div>
+            
+            <form id="login-form" onsubmit="return validateLoginForm(event)">
+                <div class="form-group">
+                    <input type="email" id="login-email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="login-password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Login</button>
+                </div>
+                <div class="form-group return-site-container">
+                    <button type="button" class="return-site-btn" onclick="returnToSite()">Retour au site</button>
+                </div>
+            </form>
+            
+            <form id="signup-form" onsubmit="return validateSignupForm(event)">
+                <div class="form-group">
+                    <input type="text" id="signup-name" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="signup-email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signup-password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Sign Up</button>
+                </div>
+                <div class="form-group return-site-container">
+                    <button type="button" class="return-site-btn" onclick="returnToSite()">Retour au site</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="custom-alert" class="custom-alert"></div>
+
+    <script>
+        function showCustomAlert(message, type = 'success') {
+            const alertElement = document.getElementById('custom-alert');
+            alertElement.textContent = message;
+            alertElement.className = `custom-alert ${type} show`;
+            
+            setTimeout(() => {
+                alertElement.classList.remove('show');
+            }, 3000);
+        }
+
+        function showLoginForm() {
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('signup-form').style.display = 'none';
+            document.getElementById('login-tab').classList.add('active');
+            document.getElementById('signup-tab').classList.remove('active');
+        }
+
+        function showSignupForm() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
+            document.getElementById('signup-tab').classList.add('active');
+            document.getElementById('login-tab').classList.remove('active');
+        }
+
+        function returnToSite() {
+            window.location.href = 'index.html';
+        }
+
+        function validateLoginForm(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            if (email && password) {
+                showCustomAlert('Connexion réussie!');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 3000);
+            } else {
+                showCustomAlert('Veuillez remplir tous les champs.', 'error');
+            }
+        }
+
+        function validateSignupForm(event) {
+            event.preventDefault();
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+
+            if (name && email && password && confirmPassword) {
+                if (password === confirmPassword) {
+                    showCustomAlert('Inscription réussie!');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 3000);
+                } else {
+                    showCustomAlert('Les mots de passe ne correspondent pas.', 'error');
+                }
+            } else {
+                showCustomAlert('Veuillez remplir tous les champs.', 'error');
+            }
+        }
+    </script>
+</body>
+</html>
